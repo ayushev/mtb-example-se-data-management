@@ -1,0 +1,26 @@
+# Documentation
+documents
+
+# Exports, Project settings
+.mtbLaunchConfigs
+.settings
+.vscode
+
+# Not required PALs
+../mtb_shared/optiga-trust-m/latest-v3.X/pal/NEW_PAL_TEMPLATE
+../mtb_shared/optiga-trust-m/latest-v3.X/pal/esp32_freertos
+../mtb_shared/optiga-trust-m/latest-v3.X/pal/libusb
+../mtb_shared/optiga-trust-m/latest-v3.X/pal/linux
+../mtb_shared/optiga-trust-m/latest-v3.X/pal/xmc4800
+../mtb_shared/optiga-trust-m/latest-v3.X/pal/xmc4800_freertos
+
+# Not required Crypto midlayers
+../mtb_shared/optiga-trust-m/latest-v3.X/pal/pal_crypt_openssl.c
+../mtb_shared/optiga-trust-m/latest-v3.X/pal/pal_crypt_wolfssl.c
+
+# Not required executeable for tools
+../mtb_shared/optiga-trust-m/latest-v3.X/examples/tools/protected_update_data_set
+../mtb_shared/optiga-trust-m/latest-v3.X/examples/utilities/authenticate_chip
+../mtb_shared/optiga-trust-m/latest-v3.X/examples/utilities/pkcs11_trustm.c
+../mtb_shared/optiga-trust-m/latest-v3.X/examples/utilities/trustm_chipinfo.c
+../mtb_shared/optiga-trust-m/latest-v3.X/examples/optiga_shell.c
