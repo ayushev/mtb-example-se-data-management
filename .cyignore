@@ -24,3 +24,8 @@ documents
 ../mtb_shared/optiga-trust-m/latest-v3.X/examples/utilities/pkcs11_trustm.c
 ../mtb_shared/optiga-trust-m/latest-v3.X/examples/utilities/trustm_chipinfo.c
 ../mtb_shared/optiga-trust-m/latest-v3.X/examples/optiga_shell.c
+../mtb_shared/optiga-trust-m/latest-v3.X/examples/optiga/example_optiga_util_read_data.c
+../mtb_shared/optiga-trust-m/latest-v3.X/examples/optiga/example_optiga_util_write_data.c
+../mtb_shared/optiga-trust-m/latest-v3.X/examples/optiga/example_optiga_util_update_count.c
+../mtb_shared/optiga-trust-m/latest-v3.X/examples/optiga/example_optiga_util_protected_update.c
+../mtb_shared/optiga-trust-m/latest-v3.X/examples/optiga/usecases/example_read_coprocessor_id.c

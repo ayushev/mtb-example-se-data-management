@@ -40,7 +40,7 @@
 #include "optiga/pal/pal.h"
 #include "provisioning_sm.h"
 
-#define PROVISIONING_MODE
+//#define PROVISIONING_MODE
 
 extern pal_logger_t logger_console;
 
@@ -50,38 +50,11 @@ extern pal_logger_t logger_console;
 * Function Prototypes
 *******************************************************************************/
 
-extern void example_optiga_crypt_hash (void);
-extern void example_optiga_crypt_ecc_generate_keypair(void);
-extern void example_optiga_crypt_ecdsa_sign(void);
-extern void example_optiga_crypt_ecdsa_verify(void);
-extern void example_optiga_crypt_ecdh(void);
-extern void example_optiga_crypt_random(void);
-extern void example_optiga_crypt_tls_prf_sha256(void);
 extern void example_optiga_util_read_data(void);
 extern void example_optiga_util_write_data(void);
-extern void example_optiga_crypt_rsa_generate_keypair(void);
-extern void example_optiga_crypt_rsa_sign(void);
-extern void example_optiga_crypt_rsa_verify(void);
-extern void example_optiga_crypt_rsa_decrypt_and_export(void);
-extern void example_optiga_crypt_rsa_decrypt_and_store(void);
-extern void example_optiga_crypt_rsa_encrypt_message(void);
-extern void example_optiga_crypt_rsa_encrypt_session(void);
 extern void example_optiga_util_update_count(void);
 extern void example_optiga_util_protected_update(void);
 extern void example_read_coprocessor_id(void);
-extern void example_optiga_crypt_hash_data(void);
-#ifdef OPTIGA_COMMS_SHIELDED_CONNECTION
-extern void example_pair_host_and_optiga_using_pre_shared_secret(void);
-#endif
-extern void example_optiga_util_hibernate_restore(void);
-extern void example_optiga_crypt_symmetric_encrypt_decrypt_ecb(void);
-extern void example_optiga_crypt_symmetric_encrypt_decrypt_cbc(void);
-extern void example_optiga_crypt_symmetric_encrypt_cbcmac(void);
-extern void example_optiga_crypt_hmac(void);
-extern void example_optiga_crypt_hkdf(void);
-extern void example_optiga_crypt_symmetric_generate_key(void);
-extern void example_optiga_hmac_verify_with_authorization_reference(void);
-extern void example_optiga_crypt_clear_auto_state(void);
 
 #endif
 
@@ -132,38 +105,11 @@ int main(void)
     pal_init();
 
 #ifndef PROVISIONING_MODE
-    example_optiga_crypt_hash();
-    example_optiga_crypt_ecc_generate_keypair();
-    example_optiga_crypt_ecdsa_sign();
-    example_optiga_crypt_ecdsa_verify();
-    example_optiga_crypt_ecdh();
-    example_optiga_crypt_random();
-    example_optiga_crypt_tls_prf_sha256();
     example_optiga_util_read_data();
     example_optiga_util_write_data();
-    example_optiga_crypt_rsa_generate_keypair();
-    example_optiga_crypt_rsa_sign();
-    example_optiga_crypt_rsa_verify();
-    example_optiga_crypt_rsa_decrypt_and_export();
-    example_optiga_crypt_rsa_decrypt_and_store();
-    example_optiga_crypt_rsa_encrypt_message();
-    example_optiga_crypt_rsa_encrypt_session();
     example_optiga_util_update_count();
     example_optiga_util_protected_update();
     example_read_coprocessor_id();
-    example_optiga_crypt_hash_data();
-    #ifdef OPTIGA_COMMS_SHIELDED_CONNECTION
-    example_pair_host_and_optiga_using_pre_shared_secret();
-    #endif
-    example_optiga_util_hibernate_restore();
-    example_optiga_crypt_symmetric_encrypt_decrypt_ecb();
-    example_optiga_crypt_symmetric_encrypt_decrypt_cbc();
-    example_optiga_crypt_symmetric_encrypt_cbcmac();
-    example_optiga_crypt_hmac();
-    example_optiga_crypt_hkdf();
-    example_optiga_crypt_symmetric_generate_key();
-    example_optiga_hmac_verify_with_authorization_reference();
-    example_optiga_crypt_clear_auto_state();
 #else
 	while(1)
 	{
