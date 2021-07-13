@@ -110,9 +110,9 @@ extern "C" {
      *         Warm Reset - (2) : This is applicable if the host platform doesn't have GPIO option for VDD. \n
      *         Any other value will lead to error
      */
-	#ifndef OPTIGA_COMMS_DEFAULT_RESET_TYPE
+    #ifndef OPTIGA_COMMS_DEFAULT_RESET_TYPE
         #define OPTIGA_COMMS_DEFAULT_RESET_TYPE     (1U)
-	#endif
+    #endif
     
     /** @brief NULL parameter check.
      *         To disable the check, undefine the macro
@@ -152,6 +152,14 @@ extern "C" {
     /** @brief OPTIGA UTIL metadata object protected update feature enable/disable macro */      
     #define EXAMPLE_OPTIGA_UTIL_PROTECTED_UPDATE_OBJECT_METADATA_ENABLED    
     
+
+    /* The following GPIO settings are only ModusToolbox and specific PSoC6 family board relevant
+     * If you don't have both the Reset and the VCC Power Control connected, please define
+     * OPTIGA_COMMS_DEFAULT_RESET_TYPE to be 1
+     * in case you have both VDD and Reset lines connected use the value 0
+     * */
+    #define OPTIGA_TRUSTM_SCL        CYBSP_I2C_SCL_OPTIGA
+    #define OPTIGA_TRUSTM_SDA        CYBSP_I2C_SDA_OPTIGA
 
 #ifdef __cplusplus
 }
