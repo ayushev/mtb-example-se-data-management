@@ -38,7 +38,7 @@
 
 #include "optiga/optiga_util.h"
 #include "optiga_example.h"
-#include "protected_update_data_set/example_optiga_util_protected_update.h"
+#include "config/example_optiga_util_protected_update.h"
 
 #ifndef OPTIGA_INIT_DEINIT_DONE_EXCLUSIVELY
 extern void example_optiga_init(void);
