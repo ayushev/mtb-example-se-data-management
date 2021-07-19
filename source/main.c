@@ -39,11 +39,12 @@
 #include "optiga/pal/pal_logger.h"
 #include "optiga/pal/pal.h"
 #include "provisioning_sm.h"
-
-//#define PROVISIONING_MODE
+#include "optiga_lib_config.h"
 
 extern pal_logger_t logger_console;
 
+/* If you would like to enable the provisioning mode don't do this from here,
+ * but rather open the makefile and change the DEFINES macro*/
 #ifndef PROVISIONING_MODE
 
 /*******************************************************************************
@@ -96,21 +97,26 @@ int main(void)
     /* Enable global interrupts */
     __enable_irq();
 
+    pal_init();
 
+#ifndef PROVISIONING_MODE
     if(PAL_STATUS_SUCCESS != pal_logger_init(&logger_console))
 	{
     	CY_ASSERT(0);
 	}
 
-    pal_init();
-
-#ifndef PROVISIONING_MODE
     example_optiga_util_read_data();
     example_optiga_util_write_data();
     example_optiga_util_update_count();
     example_optiga_util_protected_update();
     example_read_coprocessor_id();
 #else
+    result = cy_retarget_io_init(CYBSP_DEBUG_UART_TX, CYBSP_DEBUG_UART_RX, 115200);
+	if (result != CY_RSLT_SUCCESS)
+	{
+		CY_ASSERT(0);
+	}
+
 	while(1)
 	{
 		provisioning_state_machine(&logger_console);

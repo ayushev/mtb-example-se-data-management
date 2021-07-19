@@ -96,10 +96,19 @@ SOURCES=
 # directories (without a leading -I).
 INCLUDES=
 
+# Define whether the example should be compiled in provisioning mode
+PROVISIONING_MODE=0
+
 # Add additional defines to the build process (without a leading -D).
-DEFINES=\
-	OPTIGA_LIB_EXTERNAL='"optiga_lib_config_mtb.h"' \
-	MODE=$(MODE)
+ifeq ($(PROVISIONING_MODE), 1)
+	DEFINES= \
+		OPTIGA_LIB_EXTERNAL='"config/optiga_lib_config_provisioning_mode.h"'\
+		MODE=$(MODE)
+else
+	DEFINES=\
+		OPTIGA_LIB_EXTERNAL='"config/optiga_lib_config_mtb.h"' \
+		MODE=$(MODE)
+endif
 
 # Select softfp or hardfp floating point. Default is softfp.
 VFP_SELECT=

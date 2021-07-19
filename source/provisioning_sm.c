@@ -31,6 +31,7 @@
 #include "cy_pdl.h"
 #include "cyhal.h"
 #include "cybsp.h"
+#include "cy_retarget_io.h"
 
 #include "optiga_example.h"
 #include "optiga/pal/pal_logger.h"
@@ -78,6 +79,30 @@ static void optiga_comms_callback(void * callback_ctx, optiga_lib_status_t event
     optiga_comms_status = event;
 }
 
+
+static int receive_from_peer( uint8_t * p_rx_peer_data, int p_rx_peer_data_length)
+{
+	int i;
+	uint8_t rx_value;
+	for (i = 0; i < p_rx_peer_data_length; i++)
+	{
+		cyhal_uart_getc(&cy_retarget_io_uart_obj, &rx_value, 0);
+		*(p_rx_peer_data + i) = rx_value;
+	}
+	return 0;
+}
+
+static int send_to_peer( uint8_t * p_tx_peer_data, int p_tx_peer_data_length)
+{
+	uint8_t tx_value;
+	int i;
+	for (i = 0; i < p_tx_peer_data_length; i++)
+	{
+		tx_value = p_tx_peer_data[i];
+		cyhal_uart_putc(&cy_retarget_io_uart_obj, tx_value);
+	}
+	return 0;
+}
 
 /*******************************************************************************
 * Function Name: comms_open
@@ -204,7 +229,7 @@ void provisioning_state_machine(pal_logger_t* p_logger_console)
 		case RX_STATE:
 		{
 			// Receive envelopedA APDU from peer
-			error = pal_logger_read(p_logger_console, peer_data_buffer, PEER_DATA_BUFFER);
+			error = receive_from_peer(peer_data_buffer, PEER_DATA_BUFFER);
 			if(error)
 			{
 				state = ERROR_STATE;
@@ -221,6 +246,7 @@ void provisioning_state_machine(pal_logger_t* p_logger_console)
 				break;
 
 			}
+			memset(peer_data_buffer, 0, PEER_DATA_BUFFER);
 			state = TX_STATE;
 		}
 		break;
@@ -231,12 +257,14 @@ void provisioning_state_machine(pal_logger_t* p_logger_console)
 			peer_data_buffer[0] = (uint8_t)(buffer_length >> 8);
 			peer_data_buffer[1] = (uint8_t)(buffer_length);
 			memcpy(peer_data_buffer+2, chip_reponse_buffer,buffer_length);
-			error = pal_logger_write(p_logger_console, peer_data_buffer, PEER_DATA_BUFFER);
+			error = send_to_peer(peer_data_buffer, PEER_DATA_BUFFER);
 			if(error)
 			{
 				state = ERROR_STATE;
 				break;
 			}
+			memset(peer_data_buffer, 0, PEER_DATA_BUFFER);
+			memset(chip_reponse_buffer, 0, buffer_length);
 			state = RX_STATE;
 		}
 		break;
@@ -247,7 +275,7 @@ void provisioning_state_machine(pal_logger_t* p_logger_console)
 			peer_data_buffer[1] = 0x02;
 			peer_data_buffer[2] = 0xFF;
 			peer_data_buffer[3] = 0xFF;
-			pal_logger_write(p_logger_console, peer_data_buffer, PEER_DATA_BUFFER);
+			send_to_peer(peer_data_buffer, PEER_DATA_BUFFER);
 			state = RX_STATE;
 		}
 		break;
